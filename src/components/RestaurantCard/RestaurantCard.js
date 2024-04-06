@@ -2,8 +2,6 @@ import React from "react";
 import { RatingSvg } from "../../assets/icons";
 
 const RestaurantCard = ({ details }) => {
-  console.log({ details });
-
   const {
     aggregatedDiscountInfoV3,
     areaName,
@@ -24,12 +22,6 @@ const RestaurantCard = ({ details }) => {
         />
 
         <div className="absolute h-32 w-full bottom-0 left-0 z-10 bg-gradient-to-t from-black to-transparent" />
-
-        {aggregatedDiscountInfoV3 && (
-          <p className="absolute bottom-0 left-0 pb-2 px-3 font-extrabold text-xl text-white z-20">
-            {`${aggregatedDiscountInfoV3?.header} ${aggregatedDiscountInfoV3?.subHeader}`}
-          </p>
-        )}
       </div>
 
       <div className="p-2">
@@ -48,6 +40,21 @@ const RestaurantCard = ({ details }) => {
       </div>
     </div>
   );
+};
+
+export const withOffer = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div className="relative group">
+        <p className="absolute pb-4 bottom-24 left-3 text-white font-extrabold text-xl z-20 group-hover:scale-95 hover:scale-95 transition-transform origin-top">
+          {`${props.details.aggregatedDiscountInfoV3?.header} ${props.details.aggregatedDiscountInfoV3?.subHeader}`}{" "}
+          Check
+        </p>
+
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
 };
 
 export default RestaurantCard;

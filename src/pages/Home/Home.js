@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { RESTAURANT_URL } from "../../constants";
-import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
+import RestaurantCard, {
+  withOffer,
+} from "../../components/RestaurantCard/RestaurantCard";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   const [restaurantList, setRestaurantList] = useState([]);
+
+  const RestaurantCardWithOffer = withOffer(RestaurantCard);
 
   const fetchRestaurantList = async () => {
     const res = await fetch(RESTAURANT_URL);
 
     const data = await res.json();
 
-    console.log({ data });
-
     setRestaurantList(
-      data.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -22,11 +24,11 @@ const Home = () => {
     fetchRestaurantList();
   }, []);
 
-  console.log({ restaurantList });
-
   if (restaurantList?.length === 0) {
     return <h1>Loading...</h1>;
   }
+
+  console.log({ restaurantList });
 
   return (
     <main>
@@ -37,7 +39,11 @@ const Home = () => {
           {restaurantList.map((restaurant) => (
             <li>
               <Link to={`/restaurant/${restaurant.info.id}`}>
-                <RestaurantCard details={restaurant.info} />
+                {restaurant?.info?.aggregatedDiscountInfoV3 ? (
+                  <RestaurantCardWithOffer details={restaurant.info} />
+                ) : (
+                  <RestaurantCard details={restaurant.info} />
+                )}
               </Link>
             </li>
           ))}
