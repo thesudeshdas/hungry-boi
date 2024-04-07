@@ -36,7 +36,7 @@ const Home = () => {
 
       <section>
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-          {restaurantList.map((restaurant) => (
+          {restaurantList?.map((restaurant) => (
             <li>
               <Link to={`/restaurant/${restaurant.info.id}`}>
                 {restaurant?.info?.aggregatedDiscountInfoV3 ? (

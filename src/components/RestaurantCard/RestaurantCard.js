@@ -1,5 +1,6 @@
 import React from "react";
 import { RatingSvg } from "../../assets/icons";
+import { CLOUDINARY_IMAGE_URL } from "../../constants";
 
 const RestaurantCard = ({ details }) => {
   const {
@@ -16,7 +17,7 @@ const RestaurantCard = ({ details }) => {
     <div className="cursor-pointer hover:scale-95 transition-transform">
       <div className="relative rounded-xl overflow-hidden">
         <img
-          src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
+          src={CLOUDINARY_IMAGE_URL + cloudinaryImageId}
           alt={name}
           className="w-full object-cover aspect-16/10 "
         />
@@ -44,6 +45,8 @@ const RestaurantCard = ({ details }) => {
 
 export const withOffer = (RestaurantCard) => {
   return (props) => {
+    console.log({ props });
+
     return (
       <div className="relative group">
         <p className="absolute pb-4 bottom-24 left-3 text-white font-extrabold text-xl z-20 group-hover:scale-95 hover:scale-95 transition-transform origin-top">

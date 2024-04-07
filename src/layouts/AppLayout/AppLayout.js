@@ -7,7 +7,9 @@ function AppLayout() {
     <div>
       <Header />
 
-      <Outlet />
+      <div className="p-4">
+        <Outlet />
+      </div>
     </div>
   );
 }
